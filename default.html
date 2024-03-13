@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.3/dist/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <style type="text/css">
+        .heading{
+          margin-top: 10px;
+          margin-left: 30px;
+          font-family:Arial, Helvetica, sans-serif;
+      }
+      .bg-body{
+        background-image: url('https://res.cloudinary.com/dqc90vi99/image/upload/v1697450901/414_ewycje.jpg');
+        background-size: cover;
+        height: 100vh;
+       
+      }
+      .navbar-center
+      {
+        background-color: rgb(202, 230, 252);  
+        font-weight: 800;
+          font-size: 2rem;
+          font-family:Verdana, Geneva, Tahoma, sans-serif;
+      }   
+      .left,.right{
+        border: 0.1px rgb(210, 195, 195) solid;
+        border-radius: 50px;
+        
+        height: 500px;
+        width: 500px;
+        margin-top: 55px;
+      }
+      .button{
+        border-radius: 10px;
+        font-family: Arial, Helvetica, sans-serif; 
+        font-size: large;
+      }
+      label {
+      font-size: 16px;
+  font-weight: bold;
+  color: #333;
+  text-transform: uppercase;
+  
+}
+      #Symptom {background-color:transparent; width:500px; top:45px ;left: 40px;height:450px;border-radius: 20px;}
+      #Doctor {background-color: #78A9FD; width: 600px;top:45px; left: 50px}
+      #Drug {background-color: #78A9FD; width: 600px;top:45px ;left: 50px}        
+ </style> 
+</head>
+<body>
+  {% block body%}
+  <div class="navbar-center d-flex flex-wrap p-4 justify-content-center mt-0 text-lg shadow-lg rounded">
+      Disease Prediction System
+  </div>
+  <div class="bg-body">
+    <div class="container">
+      <div class="row pd-2">
+          <div class="left col-6 mr-4 shadow-lg rounded mt-5 " style="background-color:transparent;border-radius: 50px;">
+            <div id="Symptom" class="tabcontent">
+                <form name="SymptomForm" id="SymForm" method="POST" action=/disease_predict>
+                  <div class="form-group">
+                          <!-- <select multiple data-role="tagsinput" class="form-control" size=1>
+                                {% for symp in symptoms  %}
+                                <option value= "{{symp}}">{{symp}}</option>
+                                {% endfor %}
+                              </select> -->
+                          <div class="m-2">
+                              <label for="Symptom1" align="left" style="padding: 5px;">Symptom1</label>
+                              <input type="text" list="symp" multiple="multiple" class="form-control" name="Symptom1">
+                              <datalist id="symp">
+                                  {% for symp in symptoms %}
+                                  <option value= "{{symp}}">{{symp}}</option>
+                                {% endfor %}
+                              </datalist>
+                         </div>
+                         <div class="m-2">
+                            <label for="Symptom2" align="left" style="padding: 5px;">Symptom2</label>
+                            <input type="text" list="symp" multiple="multiple" class="form-control" name="Symptom2">
+                            <datalist id="symp">
+                                {% for symp in symptoms %}
+                                <option value= "{{symp}}">{{symp}}</option>
+                              {% endfor %}
+                            </datalist>
+                        </div>
+                        <div class="m-2">
+                            <label for="Symptom3" align="left" style="padding: 5px;">Symptom3</label>
+                            <input type="text" list="symp" multiple="multiple" class="form-control" name="Symptom3">
+                            <datalist id="symp">
+                                {% for symp in symptoms %}
+                                <option value= "{{symp}}">{{symp}}</option>
+                              {% endfor %}
+                            </datalist>
+                        </div>
+                        <div class="m-2">
+                          <label for="Symptom4" align="left" style="padding: 5px;">Symptom4</label>
+                          <input type="text" list="symp" multiple="multiple" class="form-control" name="Symptom4">
+                          <datalist id="symp">
+                              {% for symp in symptoms %}
+                              <option value= "{{symp}}">{{symp}}</option>
+                            {% endfor %}
+                          </datalist>
+                        </div>
+                      
+                      <div class="d-flex flex-row justify-content-center mt-5">
+                    <button type="submit" class="btn btn-primary" style="padding: 10px;" name=form>Check</button>
+                  </div>
+                  </form>
+            </div>
+          </div>  
+          <div class="right col-5 ml-5 ">
+                      <!--<div id="Doctor" class="tabcontent">
+                        <div class="head">
+                            Find My Doctor
+                          </div>
+                          <form name="Doctor_search" id="DoctorForm" method="POST" action=/find_doctor>
+                      <input type="text" class="form-control" name="doctor"><br>
+                      <button type="submit" class="btn btn-primary" style="padding: 10px;" name="search_doctor">Search</button>
+                      </form>
+                      </div> -->
+                  <!-- <div id="Drug" class="tabcontent">
+                    <form name="MedicineForm" id="medForm" method="POST">
+                      <div class="head">
+                        Know Your Drug
+                      </div>
+                      <div class="form-group">
+                          <label for="medicine" align="left">Name</label>
+                          <input type="text" class="form-control" id="medicine" placeholder="medicine name" name="medicine">
+                          <br>
+                        <button class="btn btn-primary" type="submit" method='POST'>Know about it</button>
+                      </div>
+                    </form>
+                  <script type="text/javascript">
+                    function showResult(argument) {
+                      // body...
+                      document.getElementById(argument).style.color = "white";
+                    }
+                  </script>
+                  </div> -->
+          </div>
+      </div>
+    </div>
+    </div>
+  <script>
+    function openTab(tabName,elmnt,color) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablink");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].style.backgroundColor = "";
+        }
+        document.getElementById(tabName).style.display = "block";
+        elmnt.style.backgroundColor = color;
+    
+    }
+    
+    // Get the element with id="defaultOpen" and click on it
+    document.getElementById("defaultOpen").click();
+    
+    </script>
+  {% endblock %}
+</body>
+</html>
